@@ -25,6 +25,7 @@ const ChildrenA = () => {
 
 const ChildrenB = () => {
   const { count, handleIncrement } = useCounter()
+
   return (
     <div className="bg-red-500">
       <div>{count}</div>
