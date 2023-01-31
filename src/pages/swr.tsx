@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useState } from 'react'
+import useSWR from 'swr'
 
 const useCounter = () => {
   const [count, setCount] = useState(0)
@@ -9,7 +10,12 @@ const useCounter = () => {
   return { count, handleIncrement }
 }
 
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+
 const Page: NextPage = () => {
+  const { data } = useSWR('https://jsonplaceholder.typicode.com/users', fetcher)
+  console.log(data)
+
   return (
     <>
       <ChildrenA />
