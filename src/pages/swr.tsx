@@ -10,12 +10,7 @@ const useCounter = () => {
   return { count, handleIncrement }
 }
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
-
 const Page: NextPage = () => {
-  const { data } = useSWR('https://jsonplaceholder.typicode.com/users', fetcher)
-  console.log(data)
-
   return (
     <>
       <ChildrenA />
@@ -30,11 +25,18 @@ const ChildrenA = () => {
 }
 
 const ChildrenB = () => {
-  const { count, handleIncrement } = useCounter()
+  const { data, mutate } = useSWR('foo', {
+    fallbackData: 0,
+  })
+  console.log(data)
+
+  const handleIncrement = () => {
+    mutate(data + 1)
+  }
 
   return (
     <div className="bg-red-500">
-      <div>{count}</div>
+      <div>{data}</div>
       <button onClick={handleIncrement}>Increment!</button>
     </div>
   )
