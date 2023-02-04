@@ -1,14 +1,10 @@
 import type { NextPage } from 'next'
-// import { useState } from 'react'
 import useSWR from 'swr'
 
-// const useCounter = () => {
-//   const [count, setCount] = useState(0)
-//   const handleIncrement = () => {
-//     return setCount(count + 1)
-//   }
-//   return { count, handleIncrement }
-// }
+const useSharedState = (key: string, fallbackData: any) => {
+  const { data, mutate } = useSWR(key, { fallbackData })
+  return [data, mutate]
+}
 
 const Page: NextPage = () => {
   return (
@@ -20,24 +16,20 @@ const Page: NextPage = () => {
 }
 
 const ChildrenA = () => {
-  const { data, mutate } = useSWR('foo', {
-    fallbackData: 0,
-  })
-  return <div className="bg-blue-500">{data}</div>
+  const [count] = useSharedState('foo', 0)
+  return <div className="bg-blue-500">{count}</div>
 }
 
 const ChildrenB = () => {
-  const { data, mutate } = useSWR('foo', {
-    fallbackData: 0,
-  })
+  const [count, setCount] = useSharedState('foo', 0)
 
   const handleIncrement = () => {
-    mutate(data + 1)
+    setCount(count + 1)
   }
 
   return (
     <div className="bg-red-500">
-      <div>{data}</div>
+      <div>{count}</div>
       <button onClick={handleIncrement}>Increment!</button>
     </div>
   )
