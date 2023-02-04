@@ -20,15 +20,16 @@ const Page: NextPage = () => {
 }
 
 const ChildrenA = () => {
-  const { count } = useCounter()
-  return <div className="bg-blue-500">{count}</div>
+  const { data, mutate } = useSWR('foo', {
+    fallbackData: 0,
+  })
+  return <div className="bg-blue-500">{data}</div>
 }
 
 const ChildrenB = () => {
   const { data, mutate } = useSWR('foo', {
     fallbackData: 0,
   })
-  console.log(data)
 
   const handleIncrement = () => {
     mutate(data + 1)
