@@ -1,14 +1,14 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+// import { useState } from 'react'
 import useSWR from 'swr'
 
-const useCounter = () => {
-  const [count, setCount] = useState(0)
-  const handleIncrement = () => {
-    return setCount(count + 1)
-  }
-  return { count, handleIncrement }
-}
+// const useCounter = () => {
+//   const [count, setCount] = useState(0)
+//   const handleIncrement = () => {
+//     return setCount(count + 1)
+//   }
+//   return { count, handleIncrement }
+// }
 
 const Page: NextPage = () => {
   return (
